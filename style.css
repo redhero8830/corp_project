@@ -7,11 +7,11 @@ body {
 h2 {
   font-size: 1.5em;
   margin: 0;
-  padding: 20px;
+  padding: 10px 20px;
   font-weight: bold;
   color: #1e1e23;
 }
-
+/* id="corpSearch" */
 .container .logo {
   width: 100%;
   height: 112px;
@@ -21,16 +21,21 @@ h2 {
   margin: 5px 0;
   display: flex;
   justify-content: center;
-
+  position: relative;
 }
-.container .logo div{
-  width: 100%;
+#search-show{
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  width: 30px;
+  }
+.container .logo .img-container {
+  width: 70%;
   margin: 5px;
   text-align: center;
 }
-.container .logo div img{
+.container .logo div img {
   height: 100%;
-  
 }
 .container .favorite,
 .popular {
@@ -39,16 +44,41 @@ h2 {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   background-color: white;
   margin: 5px 0;
+  padding: 10px 0;
   border-radius: 5px;
+  position: relative;
 }
 
+.search-container {
+  display: none;
+}
+#corpSearch{
+  position: absolute;
+  width: 150px;
+  font-size: 14px;
+  right: 85px;
+  top: 20px;
+}
+#searchBtn{
+  position: absolute;
+  background-color: white;
+  border: 1px solid black;
+  font-size: 15px;
+  font-weight: bold;
 
-.container .popular .p-corpList {
+  width: 50px;
+  right: 25px;
+  top: 20px;
+}
+
+.container .popular .p-corpList,
+.f-corpList {
   padding: 10px 0;
   margin: 0 20px;
 }
 
-.p-corpList .p-listHeader {
+.p-corpList .p-listHeader,
+.f-listHeader {
   display: flex;
   border-bottom: 1px solid #ccc;
   padding: 0 5px 10px;
@@ -56,27 +86,33 @@ h2 {
   font-weight: bold;
 }
 
-.p-header-corpName {
-  width: 20%;
+.p-header-corpName,
+.f-header-corpName {
+  width: 30%;
   text-align: left;
 }
 .p-header-sales,
-.p-header-salesIncrease {
+.p-header-salesIncrease,
+.f-header-sales,
+.f-header-salesIncrease {
   width: 20%;
   text-align: center;
 }
 .p-header-asset,
-.p-header-netIncome {
-  width: 20%;
+.p-header-netIncome,
+.f-header-asset,
+.f-header-netIncome {
+  width: 15%;
   text-align: right;
 }
 
-.container .popular .p-corpList .p-listContent {
+.container .popular .p-corpList .p-listContent,
+.f-listContent {
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
-.container .popular .p-corpList .p-listContent .p-corp {
+.corp {
   display: flex;
   align-items: center;
   border-bottom: 1px solid #ccc;
@@ -86,8 +122,8 @@ h2 {
   color: #000000;
   cursor: auto;
 }
-.p-corpName {
-  width: 20%;
+.corpName {
+  width: 30%;
   text-align: left;
   font-size: 18px;
   line-height: 24px;
@@ -95,15 +131,15 @@ h2 {
   font-weight: 700;
   color: #1e1e23;
 }
-.p-corpName span img {
+.corpName span img {
   width: 25px;
   margin-right: 5px;
   z-index: 100;
 }
-.p-corpName span img:hover {
+.corpName span img:hover {
   cursor: pointer;
 }
-.p-sales {
+.sales {
   width: 20%;
   text-align: center;
   font-size: 18px;
@@ -112,7 +148,7 @@ h2 {
   font-weight: 700;
   color: #1e1e23;
 }
-.p-salesIncrease {
+.salesIncrease {
   width: 20%;
   height: 100%;
   text-align: center;
@@ -120,7 +156,8 @@ h2 {
   justify-content: center;
   align-items: center;
 }
-.p-salesIncrease .redbox {
+
+.salesIncrease .redbox {
   background-color: #ed3738;
   width: 80px;
   height: 30px;
@@ -135,13 +172,62 @@ h2 {
   display: inline-block;
   vertical-align: top;
 }
-.p-asset,
-.p-netIncome {
-  width: 20%;
+
+.asset,
+.netIncome {
+  width: 15%;
   text-align: right;
   font-size: 18px;
   line-height: 24px;
   letter-spacing: -0.5px;
   font-weight: 700;
   color: #1e1e23;
+}
+
+@media screen and (max-width: 768px) {
+  .f-header-netIncome,
+  .p-header-netIncome,
+  .f-header-asset,
+  .p-header-asset,
+  .p-asset,
+  .f-asset,
+  .f-netIncome,
+  .p-netIncome {
+    display: none;
+  }
+  .f-header-corpName,
+  .p-header-corpName,
+  .corpName {
+    width: 50%;
+  }
+  .f-header-sales,
+  .p-header-sales,
+  .f-header-salesIncrease,
+  .p-header-salesIncrease,
+  .sales,
+  .salesIncrease {
+    width: 25%;
+  }
+  h2 {
+    font-size: 1.2em;
+    padding: 10px 15px;
+  }
+  .corpName,
+  .sales {
+    font-size: 16px;
+  }
+  .salesIncrease .redbox {
+    width: 50px;
+    font-size: 12px;
+  }
+  #corpSearch{
+    width: 100px;
+    font-size: 11px;
+    right: 70px;
+  }
+  #searchBtn{
+    font-size: 12px;
+    width: 40px;
+    right: 25px;
+  }
 }

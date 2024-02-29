@@ -13,59 +13,44 @@
 <body>
     <div class="container">
         <div class="logo">
-            <div>
+            <div class="img-container">
                 <img src="asset/logo2.PNG">
             </div>
+            <img id="search-show" onclick="showSearch()" src="asset/search.png" alt="">
         </div>
-        <div class="popular">
+        <div class="favorite">
             <div>
                 <h2>관심기업</h2>
             </div>
-            <div class="p-corpList">
-                <div class="p-listHeader">
-                    <div class="p-header-corpName">
+            <div class="f-corpList">
+                <div class="f-listHeader">
+                    <div class="f-header-corpName">
                         <strong>기업명</strong>
                     </div>
-                    <div class="p-header-sales">
+                    <div class="f-header-sales">
                         <strong>매출</strong>
                     </div>
-                    <div class="p-header-salesIncrease">
+                    <div class="f-header-salesIncrease">
                         <strong>매출증감율</strong>
                     </div>
-                    <div class="p-header-asset">
+                    <div class="f-header-asset">
                         <strong>자산</strong>
                     </div>
-                    <div class="p-header-netIncome">
+                    <div class="f-header-netIncome">
                         <strong>당기순이익</strong>
                     </div>
                 </div>
-                <div class="p-listContent">
-                    <a class="p-corp" href="https://m.stock.naver.com/domestic/stock/005930/total">
-                        <div class="p-corpName">
-                            <span>
-                                <img class="p-favorite-button" src="asset/no-like.png">
-                            </span>
-                            LG전자(주)
-                        </div>
-                        <div class="p-sales">
-                            232조원
-                        </div>
-                        <div class="p-salesIncrease">
-                            <div class="redbox">232조원</div>
-                        </div>
-                        <div class="p-asset">
-                            232조원
-                        </div>
-                        <div class="p-netIncome">
-                            232조원
-                        </div>
-                    </a>
+                <div class="f-listContent">
                 </div>
             </div>
         </div>
         <div class="popular">
             <div>
                 <h2>인기기업</h2>
+            </div>
+            <div class="search-container">
+                <input type="text" id="corpSearch" placeholder="기업 검색...">
+                <button id="searchBtn">검색</button>
             </div>
             <div class="p-corpList">
                 <div class="p-listHeader">
@@ -87,24 +72,66 @@
                 </div>
 
                 <div class="p-listContent">
-                    <a class="p-corp" href="https://m.stock.naver.com/domestic/stock/005930/total">
-                        <div class="p-corpName">
+                    <a class="p-corp corp" data-corp-id="lg" href="detail.html?corpName=LG전자(주)">
+                        <div class="p-corpName corpName">
                             <span>
-                                <img class="p-favorite-button" src="asset/no-like.png">
+                                <img class="favorite-button" src="asset/no-like.png">
                             </span>
                             LG전자(주)
                         </div>
-                        <div class="p-sales">
+                        <div class="p-sales sales">
                             232조원
                         </div>
-                        <div class="p-salesIncrease">
-                            <div class="redbox">232조원</div>
+                        <div class="p-salesIncrease salesIncrease">
+                            <div class="redbox">13%</div>
                         </div>
-                        <div class="p-asset">
-                            232조원
+                        <div class="p-asset asset">
+                            22조원
                         </div>
-                        <div class="p-netIncome">
-                            232조원
+                        <div class="p-netIncome netIncome">
+                            42조원
+                        </div>
+                    </a>
+                    <a class="p-corp corp" data-corp-id="samsung"
+                        href="https://m.stock.naver.com/domestic/stock/005930/total">
+                        <div class="p-corpName corpName">
+                            <span>
+                                <img class="favorite-button" src="asset/no-like.png">
+                            </span>
+                            삼성전자(주)
+                        </div>
+                        <div class="p-sales sales">
+                            777조원
+                        </div>
+                        <div class="p-salesIncrease salesIncrease">
+                            <div class="redbox">9%</div>
+                        </div>
+                        <div class="p-asset asset">
+                            22조원
+                        </div>
+                        <div class="p-netIncome netIncome">
+                            72조원
+                        </div>
+                    </a>
+                    <a class="p-corp corp" data-corp-id="hundai"
+                        href="https://m.stock.naver.com/domestic/stock/005930/total">
+                        <div class="p-corpName corpName">
+                            <span>
+                                <img class="favorite-button" src="asset/no-like.png">
+                            </span>
+                            현대자동차(주)
+                        </div>
+                        <div class="p-sales sales">
+                            464조원
+                        </div>
+                        <div class="p-salesIncrease salesIncrease">
+                            <div class="redbox">77%</div>
+                        </div>
+                        <div class="p-asset asset">
+                            55조원
+                        </div>
+                        <div class="p-netIncome netIncome">
+                            122조원
                         </div>
                     </a>
                 </div>
