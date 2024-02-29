@@ -163,7 +163,7 @@ const popularGetCorpInfo = async () => {
   }
 };
 
-// popularGetCorpInfo();
+popularGetCorpInfo();
 
 const render = () => {
   let result = "";

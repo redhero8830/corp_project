@@ -24,6 +24,7 @@ h2 {
   position: relative;
 }
 #search-show{
+  cursor: pointer;
   position: absolute;
   right: 20px;
   bottom: 20px;
@@ -191,6 +192,7 @@ h2 {
   }
   .container .logo .img-container {
     width: 60%;
+    margin-left: 20px;
   }
   .container .logo .img-container img {
     height: auto;
