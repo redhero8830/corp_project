@@ -34,7 +34,7 @@ h2 {
   margin: 5px;
   text-align: center;
 }
-.container .logo div img {
+.container .logo .img-container img {
   height: 100%;
 }
 .container .favorite,
@@ -185,6 +185,20 @@ h2 {
 }
 
 @media screen and (max-width: 768px) {
+  .container .logo {
+    justify-content: left;
+    align-items: center;
+  }
+  .container .logo .img-container {
+    width: 60%;
+  }
+  .container .logo .img-container img {
+    height: auto;
+    width: 100%;
+  }
+  #search-show{
+    width: 25px;
+    }
   .f-header-netIncome,
   .p-header-netIncome,
   .f-header-asset,
