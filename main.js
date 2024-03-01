@@ -3,17 +3,21 @@
 const API_KEY = "9fab3ef1d371e73ccc5e7b77cf1f54701ca89336";
 const CORP_CODE = [
   "00126380",
-  "00260985",
-  "00264529",
-  "00231567",
-  "00358545",
-  "00114321",
-  "00225210",
-  "00231567",
+  "00126186",
+  "00401731",
+  "00145880",
+  "00258801",
+  "00759294",
+  "00164742",
+  "00298270",
+  "00106368",
+  "00164779",
+  "00540429",
 ]; // 삼성전자 코드
-const YEAR = "2020";
-const REPORT_CODE = "11013"; // 11011: 사업보고서 (나머지는 반기 / 분기 보고서)
+const YEAR = "2022";
+const REPORT_CODE = "11011"; // 11011: 사업보고서 (나머지는 반기 / 분기 보고서)
 
+// const CORS_LINK = "https://corsproxy.io/?";
 const CORS_LINK = "https://cors-anywhere.herokuapp.com/";
 const CORP_NAME_API_LINK = "https://opendart.fss.or.kr/api/company.json";
 const CORP_INFO_API_LINK = "https://opendart.fss.or.kr/api/fnlttSinglAcnt.json";
@@ -130,36 +134,43 @@ const popularGetCorpInfo = async () => {
     let corpName_url = new URL(
       `${CORS_LINK}${CORP_NAME_API_LINK}?crtfc_key=${API_KEY}&corp_code=${corp}`
     );
-    // let corpInfo_url = new URL(
-    //   `${CORS_LINK}${CORP_INFO_API_LINK}?crtfc_key=${API_KEY}&corp_code=${corp}&bsns_year=${YEAR}&reprt_code=${REPORT_CODE}`
-    // );
+    let corpInfo_url = new URL(
+      `${CORS_LINK}${CORP_INFO_API_LINK}?crtfc_key=${API_KEY}&corp_code=${corp}&bsns_year=${YEAR}&reprt_code=${REPORT_CODE}`
+    );
     const responseCorpName = await fetch(corpName_url);
-    // const responseCorpInfo = await fetch(corpInfo_url);
+    const responseCorpInfo = await fetch(corpInfo_url);
     const dataCorpName = await responseCorpName.json();
-    // const dataCorpInfo = await responseCorpInfo.json();
+    const dataCorpInfo = await responseCorpInfo.json();
 
     console.log(dataCorpName);
-    // console.log(dataCorpInfo);
+    console.log(dataCorpInfo);
 
-    let corpInfo = {
-      id: dataCorpName.corp_code,
-      stockCode: dataCorpName.stock_code,
-      corpName: dataCorpName.corp_name,
-      // sales: parseFloat(dataCorpInfo.list[23].thstrm_amount.replace(/,/g, "")),
-      // assetThisYear: parseFloat(
-      //   dataCorpInfo.list[23].thstrm_amount.replaceAll(",", "")
-      // ),
-      // assetLastYear: parseFloat(
-      //   dataCorpInfo.list[23].frmtrm_amount.replace(/,/g, "")
-      // ),
-      // //매출액 증가율 = (당기 매출액 - 전기 매출액) / 전기 매출액 × 100
-      // asset: parseFloat(dataCorpInfo.list[16].thstrm_amount.replace(/,/g, "")),
-      // netIncome: parseFloat(
-      //   dataCorpInfo.list[26].thstrm_amount.replace(/,/g, "")
-      // ),
-    };
-    console.log(corpInfo.id);
-    corpInfos.push(corpInfo);
+    if (dataCorpInfo && dataCorpInfo.list && dataCorpInfo.list.length > 0) {
+      let corpInfo = {
+        id: dataCorpName.corp_code,
+        stockCode: dataCorpName.stock_code, // 예: 이 부분도 존재하는지 확인 필요
+        corpName: dataCorpName.corp_name,
+        sales: parseFloat(
+          dataCorpInfo.list[23]?.thstrm_amount.replace(/,/g, "") || "0"
+        ),
+        assetThisYear: parseFloat(
+          dataCorpInfo.list[23]?.thstrm_amount.replaceAll(",", "") || "0"
+        ),
+        assetLastYear: parseFloat(
+          dataCorpInfo.list[23]?.frmtrm_amount.replace(/,/g, "") || "0"
+        ),
+        asset: parseFloat(
+          dataCorpInfo.list[16]?.thstrm_amount.replace(/,/g, "") || "0"
+        ),
+        netIncome: parseFloat(
+          dataCorpInfo.list[26]?.thstrm_amount.replace(/,/g, "") || "0"
+        ),
+      };
+      corpInfos.push(corpInfo);
+    } else {
+      // 적절한 오류 처리 또는 대체 데이터 처리
+      console.log(`Data for corporation ${corp} is incomplete or missing.`);
+    }
     render();
   }
 };
@@ -169,14 +180,31 @@ popularGetCorpInfo();
 const render = () => {
   let result = "";
   for (let info of corpInfos) {
-    result += `<a class="p-corp corp" data-corp-id="${info.corpName}" href="detail.html?corpCode=${info.id}">
+    result += `<a class="p-corp corp" data-corp-id="${
+      info.corpName
+    }" href="detail.html?corpCode=${info.id}">
                 <div class="p-corpName corpName">
                     <span>
                         <img class="favorite-button" src="asset/no-like.png">
                     </span>
                     ${info.corpName}
                 </div>
-
+                <div class="p-sales sales">
+                ${Math.ceil(info.sales / 1000000000000)}조원
+            </div>
+            <div class="p-salesIncrease salesIncrease">
+                <div class="redbox">${Math.ceil(
+                  ((info.assetThisYear - info.assetLastYear) /
+                    info.assetLastYear) *
+                    100
+                )}%</div>
+            </div>
+            <div class="p-asset asset">
+                ${Math.ceil(info.asset / 1000000000000)}조원
+            </div>
+            <div class="p-netIncome netIncome">
+                ${Math.ceil(info.netIncome / 1000000000000)}조원
+            </div>
             </a>`;
   }
   document.querySelector(".p-listContent").innerHTML = result;
